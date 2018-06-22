@@ -1,10 +1,7 @@
 export function myReducer(state, action) {
     if(state === undefined) {
         return {
-            cartItems: [{
-                name: "Item1",
-                price: 100
-            }]
+            cartItems: []
         }
     }
 
@@ -19,7 +16,9 @@ export function myReducer(state, action) {
             }
         case "deleteProduct":
             let updatedItems = state.cartItems.filter(
-                product => product.name !== action.payload.name
+                (product, index) => {
+                    return index !== action.payload.index
+                }
             )
             return {
                 ...state,

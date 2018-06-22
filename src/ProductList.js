@@ -14,9 +14,10 @@ export class ProductList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.products.map(product => {
+                        {this.props.products.map((product, index) => {
                             return <ProductListItem 
-                                key={product.name} 
+                                key={index}
+                                index={index}
                                 name={product.name} 
                                 price={product.price} 
                                 deleteProduct={this.props.deleteProduct}

@@ -18,12 +18,11 @@ function mapDispatchToProps(dispatch) {
         }
       }
     ),
-    onDeleteProduct: (name) => dispatch(
+    onDeleteProduct: (index) => dispatch(
       {
         type: "deleteProduct",
         payload: {
-          name: name,
-          price: 0
+          index: index
         }
       }
     )
