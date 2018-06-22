@@ -8,9 +8,7 @@ export class ProductListItem extends Component {
                 <td>{this.props.name}</td>
                 <td>{this.props.price}</td>
                 <td>
-                    <button onClick={() => {
-                        this.props.deleteProduct(this.props.index)
-                    }}>Remove</button>
+                    <button onClick={this.props.deleteProduct}>Remove</button>
                 </td>
             </tr>
         )
