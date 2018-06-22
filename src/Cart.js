@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {AddProduct} from './AddProduct';
 import {ProductList} from './ProductList';
+import {Checkout} from './Checkout';
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 export class Cart extends Component {
     totalCost() {
@@ -11,11 +13,20 @@ export class Cart extends Component {
 
     render() {
         return (
-            <div>
-                <AddProduct addProduct={this.props.onAddProduct}></AddProduct>          
-                <ProductList products={this.props.cartItems} deleteProduct={this.props.onDeleteProduct}></ProductList>
-                <div>{this.totalCost()}</div>
-            </div>
+            <BrowserRouter>
+                <div>
+                    <Switch>
+                        <Route path="/checkout" render = {() => <Checkout text="qwertyuiop"/>}/>
+                        <Route path="/" render = {() =>{
+                            return (<div>
+                                <AddProduct addProduct={this.props.onAddProduct}></AddProduct>          
+                                <ProductList products={this.props.cartItems} deleteProduct={this.props.onDeleteProduct}></ProductList>
+                                <div>{this.totalCost()}</div>
+                            </div>)
+                            }}/>
+                    </Switch>
+                </div>            
+            </BrowserRouter>
         );
     }
 }
