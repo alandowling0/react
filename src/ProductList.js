@@ -3,7 +3,6 @@ import {ProductListItem} from './ProductListItem'
 
 export class ProductList extends Component {
     render() {
-        
         return (
             <div>
                 <table style={{width: "100%"}}>
@@ -15,9 +14,14 @@ export class ProductList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <ProductListItem name="Learn React" price={19}/>
-                        <ProductListItem name="Learn Angular" price={19}/>
-                        <ProductListItem name="Learn Ionic" price={17}/>
+                        {this.props.products.map(product => {
+                            return <ProductListItem 
+                                key={product.name} 
+                                name={product.name} 
+                                price={product.price} 
+                                deleteProduct={this.props.deleteProduct}
+                                />
+                        })}
                     </tbody>
                 </table>
             </div>

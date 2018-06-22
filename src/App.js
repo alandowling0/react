@@ -1,26 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {AddProduct} from './AddProduct';
-import {ProductList} from './ProductList';
+import { connect } from 'react-redux';
+import {Cart} from './Cart';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Alan, Welcome to React</h1>
-        </header>
-        <div>
-          <AddProduct></AddProduct>          
-        </div>
-        <div>
-          <ProductList></ProductList>
-        </div>
-      </div>
-    );
+function mapStateToProps(state) {
+  return  {
+    cartItems: state.cartItems
   }
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {
+    onAddProduct: (name, price) => dispatch(
+      {
+        type: "addProduct",
+        payload: {
+          name: name,
+          price: price
+        }
+      }
+    ),
+    onDeleteProduct: (name) => dispatch(
+      {
+        type: "deleteProduct",
+        payload: {
+          name: name,
+          price: 0
+        }
+      }
+    )
+  }
+}
+
+let connectedComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Cart);
+export default connectedComponent;
