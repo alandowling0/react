@@ -14,7 +14,7 @@ export class AddProduct extends Component {
     }
 
     onPriceChanged(event) {
-        this.setState({price: event.target.value})
+        this.setState({price: parseInt(event.target.value)})
     }
 
     render() {
