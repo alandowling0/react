@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 
 export class Login extends Component {
-    render() {
-      return (
-        <button>Login</button>
-      );
+
+    onLoginButtonClicked() {
+        this.props.history.push("/home");
     }
-  }
+
+    render() {
+        return (
+            <button onClick={this.onLoginButtonClicked.bind(this)}>Login</button>
+        );
+    }
+}
   
