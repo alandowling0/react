@@ -7,7 +7,7 @@ import {NotFound} from './NotFound';
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {width: 0, height: 0};
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 }
@@ -26,8 +26,15 @@ updateWindowDimensions() {
 }   
 
   render() {
-    let height = this.state.height - 20
-    let width = this.state.width - 20
+    let height = this.state.height - 20;
+    let width = this.state.width - 20;
+
+    if(height < width / 2) {
+        height = width / 2;
+    }
+    if(width < height / 2) {
+        width = height / 2;
+    }
 
     let renderHome = (routeProps) => <Home {...routeProps} height={height} width={width}></Home>;
 

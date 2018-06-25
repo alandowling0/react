@@ -1,0 +1,48 @@
+import React, { Component } from 'react';
+
+export class UserListItem extends Component { 
+
+    render() {
+        let containerStyle = {
+            backgroundColor: "pink",
+            borderWidth: "1px",
+            borderStyle: "solid",
+            height: this.props.height,
+            width: this.props.width
+        }
+
+        let imageAreaStyle = {
+            height: containerStyle.height,
+            width: containerStyle.height,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            float: "left"
+        };
+
+        let imageStyle = {
+            width: imageAreaStyle.width * 0.8,
+            height: imageAreaStyle.height * 0.8,
+        };
+
+        let nameStyle = {
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-evenly",
+            float: "left",
+            height: containerStyle.height
+        }
+
+        return (
+            <div style={containerStyle}>
+                <div style={imageAreaStyle}>
+                    <img style={imageStyle} src={window.location.origin + '/' + this.props.image} alt="mugshot"/>
+                </div>
+                <div style={nameStyle}>
+                    <div>{this.props.name}</div>
+                    <div>Points: {this.props.points}</div>
+                </div>
+            </div>
+        );
+    }   
+}

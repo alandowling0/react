@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import {UserList} from './UserList';
+ 
 export class Home extends Component {
 
     onDetailsButtonClicked() {
@@ -42,7 +43,9 @@ export class Home extends Component {
                 <div style={topBarStyle}>
                     <button onClick={this.onDetailsButtonClicked.bind(this)}>Details</button>
                 </div>
-                <div style={tableAreaStyle}>Table Area</div>
+                <div style={tableAreaStyle}>
+                    <UserList height={tableAreaStyle.height} width={contentAreaStyle.width}/>
+                </div>
             </div>
         </div>
         );
