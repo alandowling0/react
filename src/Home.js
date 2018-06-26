@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import {UserList} from './UserList';
  
 export class Home extends Component {
-    onDetailsButtonClicked() {
-        this.props.history.push("/details");
-    }
 
     render() {
         const backgroundAreaStyle = {
@@ -39,11 +36,9 @@ export class Home extends Component {
         return (
             <div style={backgroundAreaStyle}>
                 <div style={contentAreaStyle}>
-                    <div style={topBarStyle}>
-                        <button onClick={this.onDetailsButtonClicked.bind(this)}>Details</button>
-                    </div>
+                    <div style={topBarStyle}/>
                     <div style={tableAreaStyle}>
-                        <UserList height={tableAreaStyle.height} width={contentAreaStyle.width}/>
+                        <UserList height={tableAreaStyle.height} width={contentAreaStyle.width} history={this.props.history}/>
                     </div>
                 </div>
             </div>

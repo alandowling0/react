@@ -34,6 +34,10 @@ export class UserList extends Component {
         this.setState({userData: newUserData});
     }
 
+    onDetailsButtonClicked(name) {
+        this.props.history.push("/details/" + name);
+    }
+
     render() {
         const listStyle = {
             height: this.props.height,
@@ -47,6 +51,7 @@ export class UserList extends Component {
             <div style={listStyle}>
                 {this.state.userData.map((user, index) => {
                     return <UserListItem 
+                        userClicked={this.onDetailsButtonClicked.bind(this)}
                         height={100} 
                         width={this.props.width} 
                         name={user.name} 
