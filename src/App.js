@@ -25,9 +25,9 @@ updateWindowDimensions() {
     this.setState({ width: window.innerWidth, height: window.innerHeight });
 }   
 
-  render() {
-    let height = this.state.height - 20;
-    let width = this.state.width - 20;
+render() {
+    let height = this.state.height;
+    let width = this.state.width;
 
     if(height < width / 2) {
         height = width / 2;
@@ -36,20 +36,40 @@ updateWindowDimensions() {
         width = height / 2;
     }
 
-    let renderHome = (routeProps) => <Home {...routeProps} height={height} width={width}></Home>;
+    const renderHome = (props) => {
+        return ( 
+            <Home 
+                {...props} 
+                height={height} 
+                width={width}>
+            </Home>
+        );
+    }
+    const renderDetails = (props) => {
+        return (
+            <Details 
+                {...props} 
+                height={height}
+                width={width}
+                name="Alan"
+                points={1234}
+                image="face.jpg"
+                >
+            </Details>
+        );
+    }
 
     return (
-      
-      <BrowserRouter>
-        <div>
-          <Switch>
-          <Route exact path={"/"} component={Login}></Route>
-            <Route path={"/login"} component={Login}></Route>
-            <Route path={"/home"} render={renderHome}></Route>
-            <Route path={"/details"} component={Details}></Route>
-            <Route path={"/*"} component={NotFound}></Route>
-          </Switch>
-        </div>
+        <BrowserRouter>
+            <div>
+                <Switch>
+                    <Route exact path={"/"} component={Login}></Route>
+                    <Route path={"/login"} component={Login}></Route>
+                    <Route path={"/home"} render={renderHome}></Route>
+                    <Route path={"/details"} render={renderDetails}></Route>
+                    <Route path={"/*"} component={NotFound}></Route>
+                </Switch>
+            </div>
       </BrowserRouter>
     );  
   }

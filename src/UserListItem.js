@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 
 export class UserListItem extends Component { 
-
     render() {
-        let containerStyle = {
+        const containerStyle = {
             backgroundColor: "pink",
             borderWidth: "1px",
             borderStyle: "solid",
             height: this.props.height,
             width: this.props.width
         }
-
-        let imageAreaStyle = {
+    
+        const imageAreaStyle = {
             height: containerStyle.height,
             width: containerStyle.height,
             display: "flex",
@@ -19,13 +18,13 @@ export class UserListItem extends Component {
             justifyContent: "center",
             float: "left"
         };
-
-        let imageStyle = {
+    
+        const imageStyle = {
             width: imageAreaStyle.width * 0.8,
             height: imageAreaStyle.height * 0.8,
         };
-
-        let nameStyle = {
+    
+        const nameStyle = {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-evenly",
