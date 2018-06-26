@@ -35,7 +35,7 @@ export class UserListItem extends Component {
         return (
             <div style={containerStyle}>
                 <div style={imageAreaStyle}>
-                    <img style={imageStyle} src={window.location.origin + '/' + this.props.image} alt="mugshot"/>
+                    <img style={imageStyle} src={this.props.image} alt="mugshot"/>
                 </div>
                 <div style={nameStyle}>
                     <div>{this.props.name}</div>

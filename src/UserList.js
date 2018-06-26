@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
 import {UserListItem} from './UserListItem';
+import axios from 'axios';
 
 export class UserList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userData: []
+        }
+    }
 
-    userData = [
-        {name: "Alan", points: 123, image: "face.jpg"},
-        {name: "Isabel", points: 2323, image: "face.jpg"},
-        {name: "Robert", points: 343, image: "face.jpg"},
-        {name: "Sara", points: 434, image: "face.jpg"},
-        {name: "Michelle", points: 1222, image: "face.jpg"},
-        {name: "Marta", points: 111, image: "face.jpg"},
-        {name: "Rohan", points: 288, image: "face.jpg"},
-        {name: "Elsie", points: 76, image: "face.jpg"},
-        {name: "Tony", points: 384, image: "face.jpg"},
-        {name: "Albert", points: 222, image: "face.jpg"},
-    ];
+    componentDidMount() {
+        this.getGitHubData("alan")
+    }
+
+    getGitHubData(searchTerm) {
+        axios.get("https:api.github.com/search/users?q="+searchTerm)
+            .then(this.updateUserData.bind(this));
+    }
+
+    updateUserData(result) {
+        const items = result.data.items;
+        console.log(items);
+
+        const newUserData = items.map(item => {
+            return {
+                name: item.login,
+                points: item.score,
+                image: item.avatar_url
+            }
+        });
+
+        this.setState({userData: newUserData});
+    }
 
     render() {
         const listStyle = {
@@ -27,7 +45,7 @@ export class UserList extends Component {
 
         return (
             <div style={listStyle}>
-                {this.userData.map((user, index) => {
+                {this.state.userData.map((user, index) => {
                     return <UserListItem 
                         height={100} 
                         width={this.props.width} 
