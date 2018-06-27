@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Login} from './Login';
 import {Home} from './Home';
-import {Details} from './Details';
+import Details from './Details';
 import {NotFound} from './NotFound';
 
 class App extends Component {
@@ -51,9 +51,6 @@ render() {
                 {...props} 
                 height={height}
                 width={width}
-                name={props.match.params.name}
-                points={0}
-                image={window.location.origin + "/face.jpg"}
                 >
             </Details>
         );
@@ -65,7 +62,7 @@ render() {
                 <Route exact path={"/"} component={Login}></Route>
                 <Route path={"/login"} component={Login}></Route>
                 <Route path={"/home"} render={renderHome}></Route>
-                <Route path={"/details/:name"} render={renderDetails}></Route>
+                <Route path={"/details"} render={renderDetails}></Route>
                 <Route path={"/*"} component={NotFound}></Route>
             </Switch>
         </BrowserRouter>

@@ -29,8 +29,11 @@ class UserList extends Component {
         this.props.setUsers(newUserData);
     }
 
-    onDetailsButtonClicked(name) {
-        this.props.history.push("/details/" + name);
+    clickHandler(index) {
+        return () => {
+            this.props.selectUser(index);
+            this.props.history.push("/details");
+        }
     }
 
     render() {
@@ -46,7 +49,7 @@ class UserList extends Component {
             <div style={listStyle}>
                 {this.props.users.map((user, index) => {
                     return <UserListItem 
-                        userClicked={this.onDetailsButtonClicked.bind(this)}
+                        onClicked={this.clickHandler(index)}
                         height={100} 
                         width={this.props.width} 
                         name={user.name} 
@@ -73,6 +76,14 @@ function mapDispatchToProps(dispatch) {
                 {
                     type: "SET_USERS",
                     payload: users
+                }
+            )
+        },
+        selectUser: (selectedUser) => {
+            dispatch(
+                {
+                    type: "SELECT_USER",
+                    payload: selectedUser
                 }
             )
         }

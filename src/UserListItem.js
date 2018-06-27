@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 
 export class UserListItem extends Component { 
-
-    clickHandler() {
-        this.props.userClicked(this.props.name);
-    }
-
     render() {
         const containerStyle = {
             backgroundColor: "pink",
@@ -38,7 +33,7 @@ export class UserListItem extends Component {
         }
 
         return (
-            <div style={containerStyle} onClick={this.clickHandler.bind(this)}>
+            <div style={containerStyle} onClick={this.props.onClicked}>
                 <div style={imageAreaStyle}>
                     <img style={imageStyle} src={this.props.image} alt="mugshot"/>
                 </div>

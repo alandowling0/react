@@ -1,5 +1,6 @@
 const defaultState = {
-    users: []
+    users: [],
+    selectedUser: -1
 };
 
 function reducer(state = defaultState, action) {    
@@ -8,6 +9,12 @@ function reducer(state = defaultState, action) {
             state = {
                 ...state,
                 users: action.payload
+            }
+            break;
+        case "SELECT_USER":
+            state = {
+                ...state,
+                selectedUser: action.payload
             }
             break;
         default:
