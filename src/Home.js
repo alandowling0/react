@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {UserList} from './UserList';
+import UserList from './UserList';
  
 export class Home extends Component {
 

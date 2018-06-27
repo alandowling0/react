@@ -61,16 +61,14 @@ render() {
 
     return (
         <BrowserRouter>
-            <div>
-                <Switch>
-                    <Route exact path={"/"} component={Login}></Route>
-                    <Route path={"/login"} component={Login}></Route>
-                    <Route path={"/home"} render={renderHome}></Route>
-                    <Route path={"/details/:name"} render={renderDetails}></Route>
-                    <Route path={"/*"} component={NotFound}></Route>
-                </Switch>
-            </div>
-      </BrowserRouter>
+            <Switch>
+                <Route exact path={"/"} component={Login}></Route>
+                <Route path={"/login"} component={Login}></Route>
+                <Route path={"/home"} render={renderHome}></Route>
+                <Route path={"/details/:name"} render={renderDetails}></Route>
+                <Route path={"/*"} component={NotFound}></Route>
+            </Switch>
+        </BrowserRouter>
     );  
   }
 }

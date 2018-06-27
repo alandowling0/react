@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
-import {UserListItem} from './UserListItem';
+import { connect } from 'react-redux'
+import { UserListItem } from './UserListItem';
 import axios from 'axios';
 
-export class UserList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            userData: []
-        }
-    }
+class UserList extends Component {
 
     componentDidMount() {
         this.getGitHubData("alan")
@@ -31,7 +26,7 @@ export class UserList extends Component {
             }
         });
 
-        this.setState({userData: newUserData});
+        this.props.setUsers(newUserData);
     }
 
     onDetailsButtonClicked(name) {
@@ -49,7 +44,7 @@ export class UserList extends Component {
 
         return (
             <div style={listStyle}>
-                {this.state.userData.map((user, index) => {
+                {this.props.users.map((user, index) => {
                     return <UserListItem 
                         userClicked={this.onDetailsButtonClicked.bind(this)}
                         height={100} 
@@ -64,3 +59,24 @@ export class UserList extends Component {
         );
     }   
 }
+
+function mapStateToProps(state) {
+    return {
+        users: state.users
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setUsers: (users) => {
+            dispatch(
+                {
+                    type: "SET_USERS",
+                    payload: users
+                }
+            )
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
