@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserList from './UserList';
+import SearchBar from './SearchBar'
  
 export class Home extends Component {
 
@@ -36,7 +37,9 @@ export class Home extends Component {
         return (
             <div style={backgroundAreaStyle}>
                 <div style={contentAreaStyle}>
-                    <div style={topBarStyle}/>
+                    <div style={topBarStyle}>
+                        <SearchBar/>
+                    </div>
                     <div style={tableAreaStyle}>
                         <UserList height={tableAreaStyle.height} width={contentAreaStyle.width} history={this.props.history}/>
                     </div>

@@ -1,33 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { UserListItem } from './UserListItem';
-import axios from 'axios';
 
 class UserList extends Component {
-
-    componentDidMount() {
-        this.getGitHubData("alan")
-    }
-
-    getGitHubData(searchTerm) {
-        axios.get("https:api.github.com/search/users?q="+searchTerm)
-            .then(this.updateUserData.bind(this));
-    }
-
-    updateUserData(result) {
-        const items = result.data.items;
-        console.log(items);
-
-        const newUserData = items.map(item => {
-            return {
-                name: item.login,
-                points: item.score,
-                image: item.avatar_url
-            }
-        });
-
-        this.props.setUsers(newUserData);
-    }
 
     clickHandler(user) {
         return () => {
@@ -71,14 +46,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setUsers: (users) => {
-            dispatch(
-                {
-                    type: "SET_USERS",
-                    payload: users
-                }
-            )
-        },
         selectUser: (selectedUser) => {
             dispatch(
                 {
