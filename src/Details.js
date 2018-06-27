@@ -17,9 +17,9 @@ class Details extends Component {
                 <UserListItem 
                     height={this.props.height * 0.5}
                     width={this.props.width * 0.8}
-                    name={this.props.users[this.props.selectedUser].name} 
-                    points={this.props.users[this.props.selectedUser].points} 
-                    image={this.props.users[this.props.selectedUser].image}>
+                    name={this.props.selectedUser.name} 
+                    points={this.props.selectedUser.points} 
+                    image={this.props.selectedUser.image}>
                 </UserListItem>
             </div>
         );
@@ -28,7 +28,6 @@ class Details extends Component {
 
 function mapStateToProps(state) {
     return {
-        users: state.users,
         selectedUser: state.selectedUser
     }
 }

@@ -1,6 +1,10 @@
 const defaultState = {
     users: [],
-    selectedUser: -1
+    selectedUser: {
+        name: "",
+        points: 0,
+        image: window.location.origin + "/face.jpg"
+    }
 };
 
 function reducer(state = defaultState, action) {    

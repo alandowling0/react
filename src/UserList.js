@@ -29,9 +29,9 @@ class UserList extends Component {
         this.props.setUsers(newUserData);
     }
 
-    clickHandler(index) {
+    clickHandler(user) {
         return () => {
-            this.props.selectUser(index);
+            this.props.selectUser(user);
             this.props.history.push("/details");
         }
     }
@@ -49,7 +49,7 @@ class UserList extends Component {
             <div style={listStyle}>
                 {this.props.users.map((user, index) => {
                     return <UserListItem 
-                        onClicked={this.clickHandler(index)}
+                        onClicked={this.clickHandler(user)}
                         height={100} 
                         width={this.props.width} 
                         name={user.name} 
