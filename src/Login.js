@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class Login extends Component {
     constructor(props) {
@@ -16,7 +17,20 @@ class Login extends Component {
     }
 
     onLoginButtonClicked() {
-        this.props.login(this.state.usernameText, this.state.passwordText);
+        let githubUserQuery = "https://api.github.com/search/users";
+        githubUserQuery += ("?q=" + this.state.usernameText);
+        
+        axios.get(githubUserQuery, {auth: {username: this.state.usernameText, password: this.state.passwordText}})
+            .then(() => {
+                this.props.login(this.state.usernameText, this.state.passwordText);
+            })
+            .catch(() => {
+                this.setState({
+                        usernameText: "",
+                        passwordText: ""
+                    }
+                )
+            });  
     }
 
     usernameTextChanged(event) {
