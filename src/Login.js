@@ -12,10 +12,6 @@ class Login extends Component {
         };
     }
 
-    componentDidMount() {
-        this.props.logout()
-    }
-
     onLoginButtonClicked() {
         let githubUserQuery = "https://api.github.com/search/users";
         githubUserQuery += ("?q=" + this.state.usernameText);

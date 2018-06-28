@@ -38,7 +38,6 @@ class SearchBar extends Component {
     }
 
     parsePaginationInfo(link) {
-        console.log(link)
         let lastPageNumber = 1
 
         if(link !== undefined) {
@@ -80,6 +79,11 @@ class SearchBar extends Component {
                     placeholder="Search GitHub..." 
                     value={this.props.searchText} 
                     onChange={(event)=>{this.props.setSearchText(event.target.value)}}
+                    onKeyPress={(event)=>{
+                        if(event.key==="Enter") {
+                            this.search();
+                        }
+                    }}
                 />
                 <button 
                     onClick={this.search.bind(this)}
