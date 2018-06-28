@@ -16,8 +16,7 @@ class Login extends Component {
     }
 
     onLoginButtonClicked() {
-        this.props.setLoginCredentials(this.state.usernameText, this.state.passwordText);
-        this.props.history.push("/home");
+        this.props.login(this.state.usernameText, this.state.passwordText);
     }
 
     usernameTextChanged(event) {
@@ -45,10 +44,10 @@ class Login extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        setLoginCredentials: (username, password) => {
+        login: (username, password) => {
             dispatch(
                 {
-                    type: "SET_LOGIN_CREDENTIALS",
+                    type: "LOGIN",
                     payload: {
                         username: username,
                         password: password

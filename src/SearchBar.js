@@ -11,8 +11,11 @@ class SearchBar extends Component {
         
         axios.get(githubUserQuery, {auth: this.props.loginCredentials})
             .then((result) => {
-                this.props.setSearchResultsPage(page)
-                this.handleQueryResponse(result)
+                this.props.setSearchResultsPage(page);
+                this.handleQueryResponse(result);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }
 
@@ -39,9 +42,9 @@ class SearchBar extends Component {
         let lastPageNumber = 1
 
         if(link !== undefined) {
-            const sliced = link.slice(0, link.indexOf('rel="last"'))
-            const number = sliced.slice(sliced.lastIndexOf("page=") + 5, sliced.lastIndexOf(">"))
-            lastPageNumber = parseInt(number, 10)
+            const sliced = link.slice(0, link.indexOf('rel="last"'));
+            const number = sliced.slice(sliced.lastIndexOf("page=") + 5, sliced.lastIndexOf(">"));
+            lastPageNumber = parseInt(number, 10);
         }
 
         this.props.setSearchResultsPageCount(lastPageNumber)
@@ -66,7 +69,7 @@ class SearchBar extends Component {
     }
 
     logout() {
-        this.props.history.push("/login");
+        this.props.logout();
     }
 
     render() {
@@ -129,6 +132,14 @@ function mapDispatchToProps(dispatch) {
                 {
                     type: "SET_SEARCH_RESULTS_PAGE_COUNT",
                     payload: pageCount
+                }
+            )
+        },
+        logout: () => {
+            dispatch(
+                {
+                    type: "LOGOUT",
+                    payload: {}
                 }
             )
         }

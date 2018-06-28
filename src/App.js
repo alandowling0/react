@@ -4,6 +4,7 @@ import Login from './Login';
 import {Home} from './Home';
 import Details from './Details';
 import {NotFound} from './NotFound';
+import { connect } from 'react-redux'
 
 class App extends Component {
   constructor(props) {
@@ -38,11 +39,15 @@ render() {
 
     const renderHome = (props) => {
         return ( 
-            <Home 
-                {...props} 
-                height={height} 
-                width={width}>
-            </Home>
+            this.props.loggedIn ? (
+                <Home 
+                    {...props} 
+                    height={height} 
+                    width={width}>
+                </Home>
+            ) : (
+                <Login/>
+            )
         );
     }
     const renderDetails = (props) => {
@@ -59,8 +64,7 @@ render() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path={"/"} component={Login}></Route>
-                <Route path={"/login"} component={Login}></Route>
+                <Route exact path={"/"} render={renderHome}></Route>
                 <Route path={"/home"} render={renderHome}></Route>
                 <Route path={"/details"} render={renderDetails}></Route>
                 <Route path={"/*"} component={NotFound}></Route>
@@ -70,4 +74,10 @@ render() {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        loggedIn: state.loggedIn
+    }
+}
+
+export default connect(mapStateToProps, null)(App);
