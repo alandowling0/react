@@ -4,7 +4,10 @@ const defaultState = {
         name: "",
         points: 0,
         image: window.location.origin + "/face.jpg"
-    }
+    },
+    searchText: "",
+    searchResultsPage: 1,
+    searchResultsPageCount: 1
 };
 
 function reducer(state = defaultState, action) {    
@@ -19,6 +22,24 @@ function reducer(state = defaultState, action) {
             state = {
                 ...state,
                 selectedUser: action.payload
+            }
+            break;
+        case "SET_SEARCH_TEXT":
+            state = {
+                ...state,
+                searchText: action.payload
+            }
+            break;
+        case "SET_SEARCH_RESULTS_PAGE":
+            state = {
+                ...state,
+                searchResultsPage: action.payload
+            }
+            break;
+        case "SET_SEARCH_RESULTS_PAGE_COUNT":
+            state = {
+                ...state,
+                searchResultsPageCount: action.payload
             }
             break;
         default:

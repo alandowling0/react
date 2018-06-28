@@ -3,29 +3,24 @@ import { connect } from 'react-redux'
 import axios from 'axios';
 
 class SearchBar extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            searchText: ""
-        };
+    getUserData(searchTerm, page) {
+        const githubUserQuery = "https://api.github.com/search/users";
+        
+        axios.get(githubUserQuery + "?q=" + searchTerm + "&page=" + page)
+            .then((result) => {
+                this.props.setSearchResultsPage(page)
+                this.handleQueryResponse(result)
+            });
     }
 
-    onTextChanged(event) {
-        this.setState({
-            searchText: event.target.value
-        })
+    handleQueryResponse(result) {
+        this.updateUserData(result.data.items);
+
+        this.parsePaginationInfo(result.headers.link);
     }
 
-    onSearchButtonClicked() {
-        const searchTerm = this.state.searchText;
-
-        axios.get("https:api.github.com/search/users?q="+searchTerm).then(this.updateUserData.bind(this));
-    }
-
-    updateUserData(result) {
-        const items = result.data.items;
-
+    updateUserData(items) {
         const newUserData = items.map(item => {
             return {
                 name: item.login,
@@ -37,13 +32,61 @@ class SearchBar extends Component {
         this.props.setUsers(newUserData);
     }
 
+    parsePaginationInfo(link) {
+        console.log(link)
+        let lastPageNumber = 1
+
+        if(link !== undefined) {
+            const sliced = link.slice(0, link.indexOf('rel="last"'))
+            const number = sliced.slice(sliced.lastIndexOf("page=") + 5, sliced.lastIndexOf(">"))
+            lastPageNumber = parseInt(number, 10)
+        }
+
+        this.props.setSearchResultsPageCount(lastPageNumber)
+    }
+
+    search() {
+        if(this.props.searchText.length > 0) {
+            this.getUserData(this.props.searchText, 1);
+        }
+    }
+
+    next() {
+        if(this.props.searchResultsPage < this.props.searchResultsPageCount) {
+            this.getUserData(this.props.searchText, this.props.searchResultsPage + 1);
+        }
+    }
+
+    prev() {
+        if(this.props.searchResultsPage > 1) {
+            this.getUserData(this.props.searchText, this.props.searchResultsPage - 1);
+        }
+    }
+
     render() {
         return (
             <div>
-                <input type="text" placeholder="Search GitHub..." value={this.state.searchText} onChange={this.onTextChanged.bind(this)}/>
-                <button onClick={this.onSearchButtonClicked.bind(this)}>Search</button>
+                <input 
+                    type="text" 
+                    placeholder="Search GitHub..." 
+                    value={this.props.searchText} 
+                    onChange={(event)=>{this.props.setSearchText(event.target.value)}}
+                />
+                <button 
+                    onClick={this.search.bind(this)}
+                >Search</button>
+                <button onClick={this.prev.bind(this)}>prev</button>
+                <button onClick={this.next.bind(this)}>next</button>
             </div>
         );
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        searchText: state.searchText,
+        searchResultsPage: state.searchResultsPage,
+        searchResultsPageCount: state.searchResultsPageCount
     }
 }
 
@@ -56,8 +99,32 @@ function mapDispatchToProps(dispatch) {
                     payload: users
                 }
             )
+        },
+        setSearchText: (searchText) => {
+            dispatch(
+                {
+                    type: "SET_SEARCH_TEXT",
+                    payload: searchText
+                }
+            )
+        },
+        setSearchResultsPage: (page) => {
+            dispatch(
+                {
+                    type: "SET_SEARCH_RESULTS_PAGE",
+                    payload: page
+                }
+            )
+        },
+        setSearchResultsPageCount: (pageCount) => {
+            dispatch(
+                {
+                    type: "SET_SEARCH_RESULTS_PAGE_COUNT",
+                    payload: pageCount
+                }
+            )
         }
     }
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
