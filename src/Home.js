@@ -38,7 +38,7 @@ export class Home extends Component {
             <div style={backgroundAreaStyle}>
                 <div style={contentAreaStyle}>
                     <div style={topBarStyle}>
-                        <SearchBar/>
+                        <SearchBar logout={()=>{this.props.history.push("/login")}}/>
                     </div>
                     <div style={tableAreaStyle}>
                         <UserList height={tableAreaStyle.height} width={contentAreaStyle.width} history={this.props.history}/>

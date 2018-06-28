@@ -7,7 +7,11 @@ const defaultState = {
     },
     searchText: "",
     searchResultsPage: 1,
-    searchResultsPageCount: 1
+    searchResultsPageCount: 1,
+    loginCredentials: {
+        username: "",
+        password: ""
+    }
 };
 
 function reducer(state = defaultState, action) {    
@@ -41,6 +45,15 @@ function reducer(state = defaultState, action) {
                 ...state,
                 searchResultsPageCount: action.payload
             }
+            break;
+        case "SET_LOGIN_CREDENTIALS":
+            state = {
+                ...state,
+                loginCredentials: action.payload
+            }
+            break;
+        case "LOGOUT":
+            state = defaultState;
             break;
         default:
             return state;

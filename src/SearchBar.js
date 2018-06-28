@@ -5,9 +5,11 @@ import axios from 'axios';
 class SearchBar extends Component {
 
     getUserData(searchTerm, page) {
-        const githubUserQuery = "https://api.github.com/search/users";
+        let githubUserQuery = "https://api.github.com/search/users";
+        githubUserQuery += ("?q=" + searchTerm);
+        githubUserQuery += ("&page=" + page);
         
-        axios.get(githubUserQuery + "?q=" + searchTerm + "&page=" + page)
+        axios.get(githubUserQuery, {auth: this.props.loginCredentials})
             .then((result) => {
                 this.props.setSearchResultsPage(page)
                 this.handleQueryResponse(result)
@@ -63,6 +65,10 @@ class SearchBar extends Component {
         }
     }
 
+    logout() {
+        this.props.history.push("/login");
+    }
+
     render() {
         return (
             <div>
@@ -77,6 +83,7 @@ class SearchBar extends Component {
                 >Search</button>
                 <button onClick={this.prev.bind(this)}>prev</button>
                 <button onClick={this.next.bind(this)}>next</button>
+                <button onClick={this.props.logout}>logout</button>
             </div>
         );
     }
@@ -86,7 +93,8 @@ function mapStateToProps(state) {
     return {
         searchText: state.searchText,
         searchResultsPage: state.searchResultsPage,
-        searchResultsPageCount: state.searchResultsPageCount
+        searchResultsPageCount: state.searchResultsPageCount,
+        loginCredentials: state.loginCredentials
     }
 }
 
