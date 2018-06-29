@@ -13,16 +13,18 @@ class Login extends Component {
     }
 
     onLoginButtonClicked() {
+        const usernameText = this.state.usernameText;
+        const passwordText = this.state.passwordText;
+
         let githubUserQuery = "https://api.github.com/search/users";
-        githubUserQuery += ("?q=" + this.state.usernameText);
+        githubUserQuery += ("?q=" + usernameText);
         
-        axios.get(githubUserQuery, {auth: {username: this.state.usernameText, password: this.state.passwordText}})
+        axios.get(githubUserQuery, {auth: {username: usernameText, password: passwordText}})
             .then(() => {
-                this.props.login(this.state.usernameText, this.state.passwordText);
+                this.props.login(usernameText, passwordText);
             })
             .catch(() => {
                 this.setState({
-                        usernameText: "",
                         passwordText: ""
                     }
                 )

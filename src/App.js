@@ -77,7 +77,7 @@ render() {
 
 function mapStateToProps(state) {
     return {
-        loggedIn: state.loginCredentials.username.length > 0,
+        loggedIn: state.loginCredentials !== null,
         users: state.searchResult.users
     }
 }

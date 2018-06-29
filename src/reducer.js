@@ -1,8 +1,5 @@
 const defaultState = {
-    loginCredentials: {
-        username: "",
-        password: ""
-    },
+    loginCredentials: null,
 
     searchText: "",
     
