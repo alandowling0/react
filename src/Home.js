@@ -7,8 +7,6 @@ import {connect} from 'react-redux'
 class Home extends Component {
 
     queryUsers(searchTerm, page) {
-        console.log("queryUsers");
-
         let githubUserQuery = "https://api.github.com/search/users";
         githubUserQuery += ("?q=" + searchTerm);
         githubUserQuery += ("&page=" + page);
@@ -17,16 +15,14 @@ class Home extends Component {
             .then((result) => {
                 this.props.setSearchText(searchTerm);
                 this.props.setPage(page);
-                this.handleQueryResponse(result);
+                this.handleQueryResult(result);
             })
             .catch((error) => {
                 this.handleQueryError(error);
             });
     }
 
-    handleQueryResponse(result) {
-        console.log("handleQueryResponse");
-
+    handleQueryResult(result) {
         const searchResult = {
             users: this.users(result.data.items),
             pageCount: this.pageCount(result.headers.link)
@@ -65,32 +61,24 @@ class Home extends Component {
     }
 
     search(searchText) {
-        console.log("search", searchText);
-
         if(searchText.length > 0) {
             this.queryUsers(searchText, 1);
         }
     }
 
     nextPage() {
-        console.log("nextPage");
-
         if((this.props.searchText.length > 0) && (this.props.page < this.props.searchResult.pageCount)) {
             this.queryUsers(this.props.searchText, this.props.page + 1);
         }
     }
 
     prevPage() {
-        console.log("prevPage");
-
         if((this.props.searchText.length > 0) && (this.props.page > 1)) {
             this.queryUsers(this.props.searchText, this.props.page - 1);
         }
     }
 
     logout () {
-        console.log("logout");
-
         this.props.logout();
     }
 
