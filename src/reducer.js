@@ -1,33 +1,29 @@
 const defaultState = {
-    users: [],
-    selectedUser: {
-        name: "",
-        points: 0,
-        image: window.location.origin + "/face.jpg"
-    },
-    searchText: "",
-    searchResultsPage: 1,
-    searchResultsPageCount: 1,
     loginCredentials: {
         username: "",
         password: ""
     },
-    loggedIn: false
+
+    searchText: "",
+    
+    searchResult: {
+        users: [],
+        pageCount: 0
+    },
+    
+    page: 1,
 };
 
 function reducer(state = defaultState, action) {    
     switch(action.type) {
-        case "SET_USERS":
+        case "LOGIN":
             state = {
                 ...state,
-                users: action.payload
+                loginCredentials: action.payload
             }
             break;
-        case "SELECT_USER":
-            state = {
-                ...state,
-                selectedUser: action.payload
-            }
+        case "LOGOUT":
+            state = defaultState;
             break;
         case "SET_SEARCH_TEXT":
             state = {
@@ -35,27 +31,17 @@ function reducer(state = defaultState, action) {
                 searchText: action.payload
             }
             break;
-        case "SET_SEARCH_RESULTS_PAGE":
+        case "SET_SEARCH_RESULT":
             state = {
                 ...state,
-                searchResultsPage: action.payload
+                searchResult: action.payload
             }
             break;
-        case "SET_SEARCH_RESULTS_PAGE_COUNT":
+        case "SET_PAGE":
             state = {
                 ...state,
-                searchResultsPageCount: action.payload
+                page: action.payload
             }
-            break;
-        case "LOGIN":
-            state = {
-                ...state,
-                loginCredentials: action.payload,
-                loggedIn: true
-            }
-            break;
-        case "LOGOUT":
-            state = defaultState;
             break;
         default:
             return state;

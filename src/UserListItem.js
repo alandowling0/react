@@ -39,7 +39,6 @@ export class UserListItem extends Component {
                 </div>
                 <div style={nameStyle}>
                     <div>{this.props.name}</div>
-                    <div>Points: {this.props.points}</div>
                 </div>
             </div>
         );

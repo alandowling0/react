@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './Login';
-import {Home} from './Home';
+import Home from './Home';
 import Details from './Details';
 import {NotFound} from './NotFound';
 import { connect } from 'react-redux'
@@ -51,11 +51,12 @@ render() {
         );
     }
     const renderDetails = (props) => {
-        return (
+        return (this.props.loggedIn &&
             <Details 
                 {...props} 
                 height={height}
                 width={width}
+                users={this.props.users}
                 >
             </Details>
         );
@@ -66,7 +67,7 @@ render() {
             <Switch>
                 <Route exact path={"/"} render={renderHome}></Route>
                 <Route path={"/home"} render={renderHome}></Route>
-                <Route path={"/details"} render={renderDetails}></Route>
+                <Route path={"/details/:user"} render={renderDetails}></Route>
                 <Route path={"/*"} component={NotFound}></Route>
             </Switch>
         </BrowserRouter>
@@ -76,7 +77,8 @@ render() {
 
 function mapStateToProps(state) {
     return {
-        loggedIn: state.loggedIn
+        loggedIn: state.loginCredentials.username.length > 0,
+        users: state.searchResult.users
     }
 }
 

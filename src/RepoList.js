@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { UserListItem } from './UserListItem';
+import { RepoListItem } from './RepoListItem';
 
-export class UserList extends Component {
+export class RepoList extends Component {
 
     render() {
         const listStyle = {
             height: this.props.height,
+            width: this.props.width,
             backgroundColor: "red",
             overflow:"hidden",
             overflowY:"scroll",
@@ -14,15 +15,14 @@ export class UserList extends Component {
 
         return (
             <div style={listStyle}>
-                {this.props.users.map((user) => {
-                    return <UserListItem 
-                        onClicked={() => this.props.history.push("/details/" + user.name)}
+                {this.props.repos.map((repo) => {
+                    return <RepoListItem
                         height={100} 
                         width={this.props.width} 
-                        name={user.name}  
-                        image={user.image} 
-                        key={user.name}>
-                    </UserListItem>
+                        name={repo}  
+                        updated={repo} 
+                        key={repo}>
+                    </RepoListItem>
                 })}
             </div>
         );

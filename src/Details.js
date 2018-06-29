@@ -1,33 +1,39 @@
 import React, { Component } from 'react';
 import {UserListItem} from './UserListItem';
+import {RepoList} from './RepoList';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
 class Details extends Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
-            userRepos: []   
-        };
+            userRepos: []
+        }
     }
 
     componentDidMount() {
         let githubReposQuery = "https://api.github.com/users";
-        githubReposQuery += ("/" + this.props.selectedUser.name + "/repos");
+        githubReposQuery += ("/" + this.props.match.params.user + "/repos");
         
         axios.get(githubReposQuery)
             .then((result) => {
-                
-                let repos = result.data.map(repo => repo.name)
                 this.setState({
-                    userRepos: repos
+                    userRepos: result.data.map(repo => repo.name)
                 });
-                console.log(repos)
             })
             .catch((error) => {
                 console.log(error);
             });
+    }
+
+    image() {
+        const user = this.props.users.find((user)=>{
+            return user.name === this.props.match.params.user
+        })
+
+        return user.image;
     }
 
     render() {
@@ -39,15 +45,50 @@ class Details extends Component {
             justifyContent: "center",
             backgroundColor: "lightgreen"
         }
+
+        const contentAreaStyle = {
+            height: this.props.height * 0.8,
+            width: this.props.width * 0.9,
+            backgroundColor: "pink"
+        }
+
+        const headerAreaStyle = {
+            height: contentAreaStyle.height * 0.2,
+            width: contentAreaStyle.width,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "orange"
+        }
+
+        const listAreaStyle = {
+            height: contentAreaStyle.height * 0.8,
+            width: contentAreaStyle.width,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "lightblue"
+        }
+
         return (
             <div style={backgroundStyle}>
-                <UserListItem 
-                    height={this.props.height * 0.5}
-                    width={this.props.width * 0.8}
-                    name={this.props.selectedUser.name} 
-                    points={this.state.userRepos} 
-                    image={this.props.selectedUser.image}>
-                </UserListItem>
+                <div style={contentAreaStyle}>
+                    <div style={headerAreaStyle}>
+                        <UserListItem 
+                            height={headerAreaStyle.height * 0.9}
+                            width={headerAreaStyle.width * 0.9}
+                            name={this.props.match.params.user} 
+                            image={this.image()}>
+                        </UserListItem>
+                    </div>
+                    <div style={listAreaStyle}>
+                        <RepoList 
+                            repos={this.state.userRepos}
+                            height={listAreaStyle.height * 0.9}
+                            width={listAreaStyle.width * 0.9}>
+                        </RepoList>    
+                    </div>
+                </div> 
             </div>
         );
     }   
@@ -55,7 +96,7 @@ class Details extends Component {
 
 function mapStateToProps(state) {
     return {
-        selectedUser: state.selectedUser
+        users: state.searchResult.users
     }
 }
 
