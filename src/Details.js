@@ -18,14 +18,25 @@ class Details extends Component {
         githubReposQuery += ("/" + this.props.match.params.user + "/repos");
         
         axios.get(githubReposQuery)
-            .then((result) => {
-                this.setState({
-                    userRepos: result.data.map(repo => repo.name)
-                });
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            .then(this.handleQueryResult.bind(this))
+            .catch(this.handleQueryError.bind(this));
+    }
+
+    handleQueryResult(result) {
+        const repos = result.data.map((repo) => {
+            return {
+                name: repo.name,
+                updated: repo.updated_at
+            }
+        });
+
+        this.setState({
+            userRepos: repos
+        });
+    }
+
+    handleQueryError(error) {
+        console.log(error);
     }
 
     image() {

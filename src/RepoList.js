@@ -19,9 +19,9 @@ export class RepoList extends Component {
                     return <RepoListItem
                         height={100} 
                         width={this.props.width} 
-                        name={repo}  
-                        updated={repo} 
-                        key={repo}>
+                        name={repo.name}  
+                        updated={repo.updated} 
+                        key={repo.name}>
                     </RepoListItem>
                 })}
             </div>
