@@ -44,17 +44,21 @@ class Login extends Component {
     }
 
     handleKeyPress(event) {
-        if(event.key==="Enter") {
+        if(event.key==="Enter" && this.loginEnabled()) {
             this.onLoginButtonClicked();
         }
+    }
+
+    loginEnabled() {
+        return this.state.usernameText.length > 0
     }
 
     render() {
         return (
             <div onKeyDown={this.handleKeyPress.bind(this)}>
-                <input type="text" placeholder="Github username" value={this.state.usernameText} onChange={this.usernameTextChanged.bind(this)} />
-                <input type="password" placeholder="password" value={this.state.passwordText} onChange={this.passwordTextChanged.bind(this)}/>
-                <button onClick={this.onLoginButtonClicked.bind(this)}>Login</button>
+                <input type="text" placeholder="username..." value={this.state.usernameText} onChange={this.usernameTextChanged.bind(this)} />
+                <input type="password" placeholder="password..." value={this.state.passwordText} onChange={this.passwordTextChanged.bind(this)}/>
+                <button disabled={!this.loginEnabled()} onClick={this.onLoginButtonClicked.bind(this)}>Login</button>
             </div>
         );
     }

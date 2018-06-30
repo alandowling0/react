@@ -56,30 +56,12 @@ class Home extends Component {
         return pageCount;
     }
 
-    searchTextChanged(searchText) {
-        this.props.setSearchText(searchText);
+    nextEnabled() {
+        return (this.props.searchText.length > 0) && (this.props.page < this.props.searchResult.pageCount);
     }
 
-    search(searchText) {
-        if(searchText.length > 0) {
-            this.queryUsers(searchText, 1);
-        }
-    }
-
-    nextPage() {
-        if((this.props.searchText.length > 0) && (this.props.page < this.props.searchResult.pageCount)) {
-            this.queryUsers(this.props.searchText, this.props.page + 1);
-        }
-    }
-
-    prevPage() {
-        if((this.props.searchText.length > 0) && (this.props.page > 1)) {
-            this.queryUsers(this.props.searchText, this.props.page - 1);
-        }
-    }
-
-    logout () {
-        this.props.logout();
+    prevEnabled() {
+        return (this.props.searchText.length > 0) && (this.props.page > 1);
     }
 
     render() {
@@ -124,10 +106,11 @@ class Home extends Component {
                 <div style={contentAreaStyle}>
                     <div style={headerStyle}>
                         <SearchBar 
-                            logout={this.logout.bind(this)}
+                            logout={() => this.props.logout()}
+                            placeholder={"search github users..."}
                             searchText={this.props.searchText} 
-                            onSearch={this.search.bind(this)}
-                            onSearchTextChanged={(searchText) => {this.props.setSearchText(searchText)}}>
+                            onSearch={searchText => this.queryUsers(searchText, 1)}
+                            onSearchTextChanged={searchText => this.props.setSearchText(searchText)}>
                         </SearchBar>
                     </div>
                     <div style={tableAreaStyle}>
@@ -139,8 +122,14 @@ class Home extends Component {
                         </UserList>
                     </div>
                     <div style={footerStyle}>
-                        <button onClick={this.prevPage.bind(this)}>prev</button>
-                        <button onClick={this.nextPage.bind(this)}>next</button>
+                        <button 
+                            onClick={() => this.queryUsers(this.props.searchText, this.props.page - 1)}
+                            disabled={!this.prevEnabled()}>prev
+                        </button>
+                        <button 
+                            onClick={() => this.queryUsers(this.props.searchText, this.props.page + 1)}
+                            disabled={!this.nextEnabled()}>next
+                        </button>
                     </div>
                 </div>
             </div>
