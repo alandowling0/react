@@ -27,8 +27,8 @@ updateWindowDimensions() {
 }   
 
 render() {
-    let height = this.state.height;
-    let width = this.state.width;
+    let width = Math.max(400, this.state.width - 20);
+    let height = Math.max(300, this.state.height - 20);
 
     if(height < width / 2) {
         height = width / 2;
@@ -46,7 +46,11 @@ render() {
                     width={width}>
                 </Home>
             ) : (
-                <Login/>
+                <Login
+                    {...props} 
+                    height={height} 
+                    width={width}>
+                </Login>
             )
         );
     }

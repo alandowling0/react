@@ -82,11 +82,17 @@ class Home extends Component {
         };
     
         const headerStyle = {
-            height: contentAreaStyle.height * 0.1
+            height: contentAreaStyle.height * 0.1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
         };
 
         const footerStyle = {
-            height: contentAreaStyle.height * 0.1
+            height: contentAreaStyle.height * 0.1,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
         };
     
         const tableAreaStyle = {

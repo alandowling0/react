@@ -29,7 +29,7 @@ export class UserListItem extends Component {
             justifyContent: "center",
             float: "left",
             height: containerStyle.height,
-            fontSize: containerStyle.height * 0.35
+            fontSize: containerStyle.height * 0.3
 
         }
 

@@ -54,8 +54,18 @@ class Login extends Component {
     }
 
     render() {
+        let backgroundStyle = {
+            height: this.props.height,
+            width: this.props.width,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#718093"
+        };
+
         return (
-            <div onKeyDown={this.handleKeyPress.bind(this)}>
+            <div style={backgroundStyle} onKeyDown={this.handleKeyPress.bind(this)}>
                 <input type="text" placeholder="username..." value={this.state.usernameText} onChange={this.usernameTextChanged.bind(this)} />
                 <input type="password" placeholder="password..." value={this.state.passwordText} onChange={this.passwordTextChanged.bind(this)}/>
                 <button disabled={!this.loginEnabled()} onClick={this.onLoginButtonClicked.bind(this)}>Login</button>
