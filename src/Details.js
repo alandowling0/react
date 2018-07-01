@@ -16,6 +16,7 @@ class Details extends Component {
     componentDidMount() {
         let githubReposQuery = "https://api.github.com/users";
         githubReposQuery += ("/" + this.props.match.params.user + "/repos");
+        githubReposQuery += ("?sort=updated")
         
         axios.get(githubReposQuery)
             .then(this.handleQueryResult.bind(this))
@@ -24,9 +25,36 @@ class Details extends Component {
 
     handleQueryResult(result) {
         const repos = result.data.map((repo) => {
+
+            const updated = new Date(repo.updated_at);
+            const now = new Date();
+
+            const timeSinceLastUpdate = new Date(now - updated);
+
+            const minutesSinceUpdate = timeSinceLastUpdate / 60000;
+            const hoursSinceUpdate = minutesSinceUpdate / 60;
+            const daysSinceUpdate = hoursSinceUpdate / 24;
+            const yearsSinceUpdate = daysSinceUpdate / 365;
+
+            let timeSinceUpdate = "";
+            if(Math.floor(yearsSinceUpdate) > 1) {
+                timeSinceUpdate = "Over " + Math.floor(yearsSinceUpdate) + " years ago";
+            }
+            else if(Math.floor(daysSinceUpdate) > 1) {
+                timeSinceUpdate = Math.floor(daysSinceUpdate) + " days ago";
+            }
+            else if(Math.floor(hoursSinceUpdate) > 1) {
+                timeSinceUpdate = Math.floor(hoursSinceUpdate) + " hours ago";
+            }
+            else {
+                timeSinceUpdate = Math.floor(minutesSinceUpdate) + " minutes ago";
+            }
+
+            console.log(timeSinceLastUpdate)
+
             return {
                 name: repo.name,
-                updated: repo.updated_at
+                updated: timeSinceUpdate
             }
         });
 
