@@ -31,7 +31,8 @@ class Details extends Component {
 
             const timeSinceLastUpdate = new Date(now - updated);
 
-            const minutesSinceUpdate = timeSinceLastUpdate / 60000;
+            const secondsSinceUpdate = timeSinceLastUpdate / 1000;
+            const minutesSinceUpdate = secondsSinceUpdate / 60;
             const hoursSinceUpdate = minutesSinceUpdate / 60;
             const daysSinceUpdate = hoursSinceUpdate / 24;
             const yearsSinceUpdate = daysSinceUpdate / 365;
@@ -46,11 +47,12 @@ class Details extends Component {
             else if(Math.floor(hoursSinceUpdate) > 1) {
                 timeSinceUpdate = Math.floor(hoursSinceUpdate) + " hours ago";
             }
-            else {
+            else if(Math.floor(minutesSinceUpdate) > 1){
                 timeSinceUpdate = Math.floor(minutesSinceUpdate) + " minutes ago";
             }
-
-            console.log(timeSinceLastUpdate)
+            else {
+                timeSinceUpdate = Math.floor(secondsSinceUpdate) + " seconds ago";
+            }
 
             return {
                 name: repo.name,
