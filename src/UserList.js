@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { UserListItem } from './UserListItem';
 
 export class UserList extends Component {
+
+    componentDidUpdate() {
+        ReactDOM.findDOMNode(this).scrollTop = 0;
+    }
 
     render() {
         const listStyle = {
