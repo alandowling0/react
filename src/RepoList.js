@@ -16,7 +16,7 @@ export class RepoList extends Component {
             <div style={listStyle}>
                 {this.props.repos.map((repo) => {
                     return <RepoListItem
-                        height={100} 
+                        height={75} 
                         width={this.props.width} 
                         name={repo.name}  
                         updated={repo.updated} 

@@ -28,9 +28,7 @@ export class UserListItem extends Component {
             alignItems: "center",
             justifyContent: "center",
             float: "left",
-            height: containerStyle.height,
             fontSize: containerStyle.height * 0.3
-
         }
 
         return (
