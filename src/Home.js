@@ -66,38 +66,30 @@ class Home extends Component {
 
     render() {
         const backgroundAreaStyle = {
-            backgroundColor: "lightblue",
             height: this.props.height,
             width: this.props.width,
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            backgroundColor: "#718093"
         };
     
         const contentAreaStyle = {
-            backgroundColor: "lightgreen",
             height: backgroundAreaStyle.height * 0.8,
-            width: backgroundAreaStyle.width * 0.8
+            width: backgroundAreaStyle.width * 0.8,
+            backgroundColor: "#7f8fa6",
+            borderRadius: 10
         };
     
         const headerStyle = {
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "red",
             height: contentAreaStyle.height * 0.1
         };
 
         const footerStyle = {
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "orange",
             height: contentAreaStyle.height * 0.1
         };
     
         const tableAreaStyle = {
-            borderWidth: "1px",
-            borderStyle: "solid",
-            borderColor: "blue",
             height: contentAreaStyle.height * 0.8
         };
 

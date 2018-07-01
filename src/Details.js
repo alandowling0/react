@@ -54,13 +54,14 @@ class Details extends Component {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "lightgreen"
+            backgroundColor: "#718093"
         }
 
         const contentAreaStyle = {
             height: this.props.height * 0.8,
             width: this.props.width * 0.9,
-            backgroundColor: "pink"
+            backgroundColor: "#7f8fa6",
+            borderRadius: 10
         }
 
         const headerAreaStyle = {
@@ -69,7 +70,6 @@ class Details extends Component {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "orange"
         }
 
         const listAreaStyle = {
@@ -78,7 +78,6 @@ class Details extends Component {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "lightblue"
         }
 
         return (
@@ -86,8 +85,8 @@ class Details extends Component {
                 <div style={contentAreaStyle}>
                     <div style={headerAreaStyle}>
                         <UserListItem 
-                            height={headerAreaStyle.height * 0.9}
-                            width={headerAreaStyle.width * 0.9}
+                            height={headerAreaStyle.height}
+                            width={headerAreaStyle.width}
                             name={this.props.match.params.user} 
                             image={this.image()}>
                         </UserListItem>
@@ -95,8 +94,8 @@ class Details extends Component {
                     <div style={listAreaStyle}>
                         <RepoList 
                             repos={this.state.userRepos}
-                            height={listAreaStyle.height * 0.9}
-                            width={listAreaStyle.width * 0.9}>
+                            height={listAreaStyle.height}
+                            width={listAreaStyle.width}>
                         </RepoList>    
                     </div>
                 </div> 

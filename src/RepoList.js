@@ -7,7 +7,6 @@ export class RepoList extends Component {
         const listStyle = {
             height: this.props.height,
             width: this.props.width,
-            backgroundColor: "red",
             overflow:"hidden",
             overflowY:"scroll",
             margin: "0px",

@@ -3,9 +3,6 @@ import React, { Component } from 'react';
 export class UserListItem extends Component { 
     render() {
         const containerStyle = {
-            backgroundColor: "pink",
-            borderWidth: "1px",
-            borderStyle: "solid",
             height: this.props.height,
             width: this.props.width
         }
@@ -24,12 +21,16 @@ export class UserListItem extends Component {
             height: imageAreaStyle.height * 0.8,
         };
     
-        const nameStyle = {
+        const nameAreaStyle = {
+            height: containerStyle.height,
+            width: containerStyle.width - imageAreaStyle.width,
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-evenly",
+            alignItems: "center",
+            justifyContent: "center",
             float: "left",
-            height: containerStyle.height
+            height: containerStyle.height,
+            fontSize: containerStyle.height * 0.35
+
         }
 
         return (
@@ -37,7 +38,7 @@ export class UserListItem extends Component {
                 <div style={imageAreaStyle}>
                     <img style={imageStyle} src={this.props.image} alt="mugshot"/>
                 </div>
-                <div style={nameStyle}>
+                <div style={nameAreaStyle}>
                     <div>{this.props.name}</div>
                 </div>
             </div>

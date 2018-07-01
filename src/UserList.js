@@ -6,7 +6,6 @@ export class UserList extends Component {
     render() {
         const listStyle = {
             height: this.props.height,
-            backgroundColor: "red",
             overflow:"hidden",
             overflowY:"scroll",
             margin: "0px",
